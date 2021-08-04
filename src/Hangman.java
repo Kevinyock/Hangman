@@ -9,7 +9,7 @@ public class Hangman {
 	int randNum;
 	int MaxFailGuess;
 	int currentFailGuess = 0;
-	
+
 	File VeryEZFile = new File("VeryEZWord.txt");
 	File EZFile = new File("EZWord.txt");
 	File NormalFile = new File("NormWord.txt");
@@ -23,7 +23,7 @@ public class Hangman {
 	char[] Userguessword;
 	char guessletter;
 	int filledLetters = 0;
-	
+
 	int difficultyInput = 0;
 
 	Scanner WordScanner;
@@ -34,6 +34,7 @@ public class Hangman {
 	}
 
 	private void Game() {
+		/*
 		try {
 			while (difficultyInput == 0) {
 				System.out.println("Difficulty: ");
@@ -44,56 +45,45 @@ public class Hangman {
 				System.out.println("5 - Very Hard");
 
 				difficultyInput = scanner.nextInt();
-
-				switch (difficultyInput) {
-				case 1:
-					ListScanner(VeryEZFile);
-					MaxFailGuess = 10;
-					break;
-				case 2:
-					ListScanner(EZFile);
-					MaxFailGuess = 8;
-					break;
-				case 3:
-					ListScanner(NormalFile);
-					MaxFailGuess = 5;
-					break;
-				case 4:
-					ListScanner(HardFile);
-					MaxFailGuess = 5;
-					break;
-				case 5:
-					ListScanner(VeryHardFile);
-					MaxFailGuess = 5;
-					break;
-				default:
-					System.out.println("Please input one of the proper difficulty");
-					break;
-				}
-
+				
+				setDifficulty(difficultyInput);
 			}
 		} catch (InputMismatchException e) {
 			scanner.nextLine();
 		}
-		
-		chosingword();
-		
-		while (!wordGuessed && currentFailGuess < MaxFailGuess) {
-			
-			if(filledLetters == Chosenword.length())
-			{
-				wordGuessed = true;
-				System.out.println("You got the word guess right");
-				System.out.println("You correctly guess the following word");
-				System.out.println(Chosenword);
-			}
-			else
-			{
-				System.out.println();
-				System.out.println("What is the next letter you chose");
-				Guess();
-			}
 
+		chosingword();
+
+		Guessing();
+		*/
+	}
+
+	
+	public void setDifficulty(int difficulty) {
+		switch (difficulty) {
+		case 1:
+			ListScanner(VeryEZFile);
+			MaxFailGuess = 10;
+			break;
+		case 2:
+			ListScanner(EZFile);
+			MaxFailGuess = 8;
+			break;
+		case 3:
+			ListScanner(NormalFile);
+			MaxFailGuess = 5;
+			break;
+		case 4:
+			ListScanner(HardFile);
+			MaxFailGuess = 5;
+			break;
+		case 5:
+			ListScanner(VeryHardFile);
+			MaxFailGuess = 5;
+			break;
+		default:
+			System.out.println("Please input one of the proper difficulty");
+			break;
 		}
 	}
 
@@ -103,39 +93,35 @@ public class Hangman {
 		} catch (FileNotFoundException e1) {
 			System.out.println("File not found");
 		}
-		
-		while(WordScanner.hasNext()) {
+
+		while (WordScanner.hasNext()) {
 
 			String Word = WordScanner.nextLine();
 			listofwords.add(Word);
 		}
-		while(WordScanner.hasNext());
+		while (WordScanner.hasNext());
 		WordScanner.close();
 	}
-	
-	private void chosingword()
-	{
-		randNum = (int)(Math.random() * listofwords.size());
+
+	private void chosingword() {
+		randNum = (int) (Math.random() * listofwords.size());
 		Chosenword = listofwords.get(randNum);
 
-		Userguessword = new char[Chosenword.length()];	
-		
-		for (int i = 0; i < Chosenword.length(); i++)
-		{
+		Userguessword = new char[Chosenword.length()];
+
+		for (int i = 0; i < Chosenword.length(); i++) {
 			Userguessword[i] = '_';
 		}
 	}
-	
-	public void Guess()
-	{
+
+	public void Guess() {
 		for (int i = 0; i < Chosenword.length(); i++) {
 			System.out.print(Userguessword[i] + " ");
 		}
 		System.out.println();
-		
+
 		guessletter = scanner.next().charAt(0);
-		if(Character.isLetter(guessletter))
-		{
+		if (Character.isLetter(guessletter)) {
 			guessletter = Character.toLowerCase(guessletter);
 			for (int i = 0; i < Chosenword.length(); i++) {
 				if (Chosenword.charAt(i) == guessletter) {
@@ -143,10 +129,25 @@ public class Hangman {
 					Userguessword[i] = Chosenword.charAt(i);
 				}
 			}
-		}
-		else
-		{
+		} else {
 			System.out.println("User guess is not a letter");
 		}
+	}
+
+	public void Guessing()
+	{
+		while (!wordGuessed && currentFailGuess < MaxFailGuess) {
+
+			if (filledLetters == Chosenword.length()) {
+				wordGuessed = true;
+				System.out.println("You got the word guess right");
+				System.out.println("You correctly guess the following word");
+				System.out.println(Chosenword);
+			} else {
+				System.out.println();
+				System.out.println("What is the next letter you chose");
+				Guess();
+			}
+	}
 	}
 }
