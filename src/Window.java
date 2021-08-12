@@ -122,4 +122,24 @@ public class Window extends JPanel{
 		}
 		
 	}
+	
+	public class GamePanel extends JPanel implements ActionListener
+	{
+		
+		private JPanel HangmanImage = new JPanel();
+		private JPanel Statistics = new JPanel();
+		
+		public GamePanel()
+		{
+			setLayout(null);
+			
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
 }
