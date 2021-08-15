@@ -5,7 +5,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Hangman {
-
+	
+	private static Hangman instance = null;
+	
 	int randNum;
 	int MaxFailGuess;
 	int currentFailGuess = 0;
@@ -29,35 +31,15 @@ public class Hangman {
 	Scanner WordScanner;
 	Scanner scanner = new Scanner(System.in);
 
-	Hangman() {
-		Game();
-	}
-
-	private void Game() {
-		/*
-		try {
-			while (difficultyInput == 0) {
-				System.out.println("Difficulty: ");
-				System.out.println("1 - Very Easy");
-				System.out.println("2 - Easy");
-				System.out.println("3 - Normal");
-				System.out.println("4 - Hard");
-				System.out.println("5 - Very Hard");
-
-				difficultyInput = scanner.nextInt();
-				
-				setDifficulty(difficultyInput);
-			}
-		} catch (InputMismatchException e) {
-			scanner.nextLine();
+	public static Hangman getInstance()
+	{
+		if(instance == null)
+		{
+			instance = new Hangman();
 		}
-
-		chosingword();
-
-		Guessing();
-		*/
+		
+		return instance;
 	}
-
 	
 	public void setDifficulty(int difficulty) {
 		switch (difficulty) {
