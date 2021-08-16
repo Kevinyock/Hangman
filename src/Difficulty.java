@@ -2,8 +2,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class Difficulty extends Window implements ActionListener{
+public class Difficulty extends Window
+{
 
+	private GameWindow gameWindow = GameWindow.getInstance();
+	
 	public static Difficulty instance = null;
 	
 	private int DifficultyFrameWidth = 275;
@@ -65,26 +68,31 @@ public class Difficulty extends Window implements ActionListener{
 		{
 			//hangman.setDifficulty(1);
 			setWindowVisible(false);
+			gameWindow.setWindowVisible(true);
 		}
 		else if(e.getSource() == Easy)
 		{
 			//hangman.setDifficulty(2);
 			setWindowVisible(false);
+			gameWindow.setWindowVisible(true);
 		}
 		else if(e.getSource() == Normal)
 		{
 			//hangman.setDifficulty(3);
 			setWindowVisible(false);
+			gameWindow.setWindowVisible(true);
 		}
 		else if(e.getSource() == Hard)
 		{
 			//hangman.setDifficulty(4);
 			setWindowVisible(false);
+			gameWindow.setWindowVisible(true);
 		}
 		else
 		{
 			//hangman.setDifficulty(5);
 			setWindowVisible(false);
+			gameWindow.setWindowVisible(true);
 		}
 	}
 	
