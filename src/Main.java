@@ -6,12 +6,10 @@
  *
  */
 public class Main {
-
-	Hangman hangman = Hangman.getInstance();
 	
 	public static void main(String[] args) {
-		//Difficulty difficulty = Difficulty.getInstance();
-		GameWindow gameWindow = GameWindow.getInstance();
+		Difficulty.getInstance();
+		//GameWindow.getInstance();
 	}
 
 }

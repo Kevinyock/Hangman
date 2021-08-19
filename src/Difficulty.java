@@ -1,5 +1,6 @@
+import java.awt.GridLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class Difficulty extends Window
@@ -12,8 +13,7 @@ public class Difficulty extends Window
 	private int DifficultyFrameWidth = 275;
 	private int DifficultyFrameHeight = 320;
 	
-	private int buttonWidth = 250;
-	private int buttonHeight = 50;
+	private JPanel DifficultyPanel = new JPanel();
 	
 	//Difficulty buttons
 	private JButton VeryEasy = new JButton("Very Easy");
@@ -36,29 +36,28 @@ public class Difficulty extends Window
 		setTitle("Difficulty");
 		setBounds(0,0,DifficultyFrameWidth,DifficultyFrameHeight);
 		setResizable(false);
-		setLocationRelativeTo(this);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
-		
-		setLayout(null);
-		
-		add(VeryEasy);
-		add(Easy);
-		add(Normal);
-		add(Hard);
-		add(VeryHard);
-		
-		VeryEasy.setBounds(5, 5, buttonWidth, buttonHeight);
-		Easy.setBounds(5,60, buttonWidth, buttonHeight);
-		Normal.setBounds(5, 115, buttonWidth, buttonHeight);
-		Hard.setBounds(5, 170, buttonWidth, buttonHeight);
-		VeryHard.setBounds(5, 225, buttonWidth, buttonHeight);
 
+		add(DifficultyPanel);
+		
+		DifficultyPanel.setBackground(Color.RED);
+		DifficultyPanel.add(VeryEasy);
+		DifficultyPanel.add(Easy);
+		DifficultyPanel.add(Normal);
+		DifficultyPanel.add(Hard);
+		DifficultyPanel.add(VeryHard);
+		
+		DifficultyPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		DifficultyPanel.setLayout(new GridLayout(5,1,0,5));
+		
 		VeryEasy.addActionListener(this);
 		Easy.addActionListener(this);
 		Normal.addActionListener(this);
 		Hard.addActionListener(this);
 		VeryHard.addActionListener(this);
+		
+		setVisible(true);
 	}
 	
 	@Override

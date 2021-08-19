@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Hangman {
@@ -45,6 +44,7 @@ public class Hangman {
 		switch (difficulty) {
 		case 1:
 			ListScanner(VeryEZFile);
+			chosingword();
 			MaxFailGuess = 10;
 			break;
 		case 2:
@@ -69,6 +69,10 @@ public class Hangman {
 		}
 	}
 
+	/**
+	 * Scan the file and add all of the words from the text file into the Arraylist
+	 * @param file
+	 */
 	private void ListScanner(File file) {
 		try {
 			WordScanner = new Scanner(file);
@@ -85,6 +89,9 @@ public class Hangman {
 		WordScanner.close();
 	}
 
+	/**
+	 * Pick a random word from the list
+	 */
 	private void chosingword() {
 		randNum = (int) (Math.random() * listofwords.size());
 		Chosenword = listofwords.get(randNum);
@@ -96,6 +103,9 @@ public class Hangman {
 		}
 	}
 
+	/**
+	 * Player has to guess
+	 */
 	public void Guess() {
 		for (int i = 0; i < Chosenword.length(); i++) {
 			System.out.print(Userguessword[i] + " ");
