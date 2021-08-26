@@ -53,20 +53,41 @@ public class GameWindow extends Window
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		MainPanelSetUp();
+		OptionPanelSetUp();
+		HangmanImageSetUp();
+		
+	}
+
+	public void MainPanelSetUp()
+	{
 		add(mainPanel);
+		mainPanel.setOpaque(true);
+		mainPanel.setBounds(0, 0, GameFrameWidth, GameFrameHeight);
+		mainPanel.setLayout(null);
 		mainPanel.setBackground(Color.RED);
 		mainPanel.setVisible(true);
-		
+
+		mainPanel.add(options);
 		mainPanel.add(HangmanImage);
 		mainPanel.add(GuessedWord);
-		mainPanel.add(Statistics);
-		mainPanel.add(options);
-
+		//mainPanel.add(Statistics);
+	}
+	
+	/**
+	 * Set Up Option Panel
+	 */
+	public void OptionPanelSetUp()
+	{
 		options.add(Restart);
 		options.add(GiveUp);
 		
+		options.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		options.setBackground(Color.WHITE);
 		options.setLayout(new GridLayout(2,1,5,5));
 		options.setSize(100,100);
+		options.setBounds(385, 385, 100, 100);
+		
 		Restart.setBounds(0, 0, 100, 80);
 		GiveUp.setBounds(0,0,100,80);
 		
@@ -74,9 +95,30 @@ public class GameWindow extends Window
 		GiveUp.addActionListener(this);
 
 		options.setVisible(true);
+	}
+	
+	public void HangmanImageSetUp()
+	{
+		HangmanImage.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		HangmanImage.setBounds(10,10,360,360);
+		HangmanImage.setBackground(Color.WHITE);
+		HangmanImage.setLayout(null);
+
+		HangmanImage.setVisible(true);
 		
 	}
-
+	/**
+	 * 
+	 */
+	public void GussedWordPanelSetUp()
+	{
+		
+	}
+	
+	private void StatisticsPanelSetuP()
+	{
+		
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) 
@@ -91,19 +133,5 @@ public class GameWindow extends Window
 		}
 	}
 	
-
-	@Override
-	public void paint(Graphics g)
-	{
-		head = (Graphics2D) g;
-	}
-
-	/**
-	 * Draw the Head
-	 */
-	public void drawHead()
-	{
-		head.drawOval(0, 0, 100, 100);
-	}
 	
 }
