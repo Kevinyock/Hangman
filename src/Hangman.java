@@ -18,6 +18,8 @@ public class Hangman {
 	File VeryHardFile = new File("VeryHard.txt");
 
 	boolean wordGuessed = false;
+	
+	private String difficulty;
 
 	private ArrayList<String> listofwords = new ArrayList<String>();
 	String Chosenword = "Tesla";
@@ -43,25 +45,19 @@ public class Hangman {
 	public void setDifficulty(int difficulty) {
 		switch (difficulty) {
 		case 1:
-			ListScanner(VeryEZFile);
-			chosingword();
-			MaxFailGuess = 10;
+			AssignDifficulty(VeryEZFile,"Very Easy",10);
 			break;
 		case 2:
-			ListScanner(EZFile);
-			MaxFailGuess = 8;
+			AssignDifficulty(EZFile,"Easy",8);
 			break;
 		case 3:
-			ListScanner(NormalFile);
-			MaxFailGuess = 5;
+			AssignDifficulty(NormalFile,"Normal",5);
 			break;
 		case 4:
-			ListScanner(HardFile);
-			MaxFailGuess = 5;
+			AssignDifficulty(HardFile,"Hard",5);
 			break;
 		case 5:
-			ListScanner(VeryHardFile);
-			MaxFailGuess = 5;
+			AssignDifficulty(VeryHardFile,"Very Hard",5);
 			break;
 		default:
 			System.out.println("Please input one of the proper difficulty");
@@ -140,6 +136,19 @@ public class Hangman {
 				System.out.println("What is the next letter you chose");
 				Guess();
 			}
+		}
 	}
+	
+	public void AssignDifficulty(File fileName,String Difficulty, int MaxFailGuess)
+	{
+		ListScanner(fileName);
+		difficulty = Difficulty;
+		this.MaxFailGuess = MaxFailGuess;
+		chosingword();
+	}
+	
+	public String getDifficulty()
+	{
+		return difficulty;
 	}
 }

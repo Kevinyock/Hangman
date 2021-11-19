@@ -10,11 +10,12 @@ import javax.swing.*;
 public class GameWindow extends Window
 {
 	private static GameWindow instance = null;
+	private static Hangman hangman = Hangman.getInstance();
 
 	private KeyStroke keyStroke;
 	
 	private int GameFrameWidth = 512;
-	private int GameFrameHeight = 512;
+	private int GameFrameHeight = 534;
 
 	private JPanel mainPanel = new JPanel();
 	private JPanel HangmanImage = new JPanel();
@@ -24,6 +25,10 @@ public class GameWindow extends Window
 	
 	private JButton GiveUp = new JButton("Give Up");
 	private JButton Restart = new JButton("Restart");
+	
+	private JLabel DifficultyChosen = new JLabel();
+	private JLabel GuessFieldCounter = new JLabel();
+	private JLabel RemainingBlankLetters = new JLabel();
 	
 	Graphics2D head;
 	/**
@@ -45,7 +50,7 @@ public class GameWindow extends Window
 		return instance;
 	}
 	
-	public GameWindow()
+	private GameWindow()
 	{
 		setTitle("Hangman");
 		setBounds(0,0,GameFrameWidth,GameFrameHeight);
@@ -56,10 +61,11 @@ public class GameWindow extends Window
 		MainPanelSetUp();
 		OptionPanelSetUp();
 		HangmanImageSetUp();
-		
+		GussedWordPanelSetUp();
+		StatisticsPanelSetuP();
 	}
 
-	public void MainPanelSetUp()
+	private void MainPanelSetUp()
 	{
 		add(mainPanel);
 		mainPanel.setOpaque(true);
@@ -71,13 +77,13 @@ public class GameWindow extends Window
 		mainPanel.add(options);
 		mainPanel.add(HangmanImage);
 		mainPanel.add(GuessedWord);
-		//mainPanel.add(Statistics);
+		mainPanel.add(Statistics);
 	}
 	
 	/**
 	 * Set Up Option Panel
 	 */
-	public void OptionPanelSetUp()
+	private void OptionPanelSetUp()
 	{
 		options.add(Restart);
 		options.add(GiveUp);
@@ -97,27 +103,37 @@ public class GameWindow extends Window
 		options.setVisible(true);
 	}
 	
-	public void HangmanImageSetUp()
+	private void HangmanImageSetUp()
 	{
 		HangmanImage.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		HangmanImage.setBounds(10,10,360,360);
 		HangmanImage.setBackground(Color.WHITE);
 		HangmanImage.setLayout(null);
-
 		HangmanImage.setVisible(true);
-		
 	}
+	
 	/**
 	 * 
 	 */
-	public void GussedWordPanelSetUp()
+	private void GussedWordPanelSetUp()
 	{
-		
+		GuessedWord.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		GuessedWord.setBounds(10, 385, 360, 100);
+		GuessedWord.setBackground((Color.WHITE));
+		GuessedWord.setLayout(null);
+		GuessedWord.setVisible(true);
 	}
 	
 	private void StatisticsPanelSetuP()
 	{
-		
+		Statistics.add(DifficultyChosen);
+		DifficultyChosen.setText(String.format("Difficulty:\n %s", hangman.getDifficulty()));
+		DifficultyChosen.setBounds(10, 10, 100, 10);
+		Statistics.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		Statistics.setBounds(385,10,100,360);
+		Statistics.setBackground((Color.WHITE));
+		Statistics.setLayout(null);
+		Statistics.setVisible(true);
 	}
 	
 	@Override

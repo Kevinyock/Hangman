@@ -8,7 +8,9 @@ public class Difficulty extends Window
 
 	private GameWindow gameWindow = GameWindow.getInstance();
 	
-	public static Difficulty instance = null;
+	private static Difficulty instance = null;
+	
+	private static Hangman hangman = Hangman.getInstance();
 	
 	private int DifficultyFrameWidth = 275;
 	private int DifficultyFrameHeight = 320;
@@ -65,31 +67,31 @@ public class Difficulty extends Window
 		//Hold off until the game window is ready
 		if(e.getSource() == VeryEasy )
 		{
-			//hangman.setDifficulty(1);
+			hangman.setDifficulty(1);
 			setWindowVisible(false);
 			gameWindow.setWindowVisible(true);
 		}
 		else if(e.getSource() == Easy)
 		{
-			//hangman.setDifficulty(2);
+			hangman.setDifficulty(2);
 			setWindowVisible(false);
 			gameWindow.setWindowVisible(true);
 		}
 		else if(e.getSource() == Normal)
 		{
-			//hangman.setDifficulty(3);
+			hangman.setDifficulty(3);
 			setWindowVisible(false);
 			gameWindow.setWindowVisible(true);
 		}
 		else if(e.getSource() == Hard)
 		{
-			//hangman.setDifficulty(4);
+			hangman.setDifficulty(4);
 			setWindowVisible(false);
 			gameWindow.setWindowVisible(true);
 		}
 		else
 		{
-			//hangman.setDifficulty(5);
+			hangman.setDifficulty(5);
 			setWindowVisible(false);
 			gameWindow.setWindowVisible(true);
 		}
