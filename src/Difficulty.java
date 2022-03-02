@@ -69,31 +69,31 @@ public class Difficulty extends Window
 		{
 			hangman.setDifficulty(1);
 			setWindowVisible(false);
-			gameWindow.setWindowVisible(true);
+			gameWindow.StartGame();
 		}
 		else if(e.getSource() == Easy)
 		{
 			hangman.setDifficulty(2);
 			setWindowVisible(false);
-			gameWindow.setWindowVisible(true);
+			gameWindow.StartGame();
 		}
 		else if(e.getSource() == Normal)
 		{
 			hangman.setDifficulty(3);
 			setWindowVisible(false);
-			gameWindow.setWindowVisible(true);
+			gameWindow.StartGame();
 		}
 		else if(e.getSource() == Hard)
 		{
 			hangman.setDifficulty(4);
 			setWindowVisible(false);
-			gameWindow.setWindowVisible(true);
+			gameWindow.StartGame();
 		}
 		else
 		{
 			hangman.setDifficulty(5);
 			setWindowVisible(false);
-			gameWindow.setWindowVisible(true);
+			gameWindow.StartGame();
 		}
 	}
 	

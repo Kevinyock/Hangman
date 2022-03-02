@@ -58,11 +58,21 @@ public class GameWindow extends Window
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		//MainPanelSetUp();
+		//OptionPanelSetUp();
+		//HangmanImageSetUp();
+		//GussedWordPanelSetUp();
+		//StatisticsPanelSetuP();
+	}
+	
+	public void StartGame()
+	{
 		MainPanelSetUp();
 		OptionPanelSetUp();
 		HangmanImageSetUp();
 		GussedWordPanelSetUp();
 		StatisticsPanelSetuP();
+		setWindowVisible(true);
 	}
 
 	private void MainPanelSetUp()
@@ -127,8 +137,9 @@ public class GameWindow extends Window
 	private void StatisticsPanelSetuP()
 	{
 		Statistics.add(DifficultyChosen);
-		DifficultyChosen.setText(String.format("Difficulty:\n %s", hangman.getDifficulty()));
-		DifficultyChosen.setBounds(10, 10, 100, 10);
+		DifficultyChosen.setText(String.format("<html>Difficulty:<br> %s</html>", hangman.getDifficulty()));
+		//DifficultyChosen.setHorizontalAlignment(SwingConstants.CENTER);
+		DifficultyChosen.setBounds(10, 10, 100, 30);
 		Statistics.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 		Statistics.setBounds(385,10,100,360);
 		Statistics.setBackground((Color.WHITE));
