@@ -1,15 +1,18 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Hangman {
-	
+
 	private static Hangman instance = null;
-	
+
 	int randNum;
-	int MaxFailGuess;
+	int maxFailGuess;
 	int currentFailGuess = 0;
+	int numberOfRestarts = 0;
+	int numberofGiveUp = 0;
 
 	File VeryEZFile = new File("VeryEZWord.txt");
 	File EZFile = new File("EZWord.txt");
@@ -18,7 +21,7 @@ public class Hangman {
 	File VeryHardFile = new File("VeryHard.txt");
 
 	boolean wordGuessed = false;
-	
+
 	private String difficulty;
 
 	private ArrayList<String> listofwords = new ArrayList<String>();
@@ -32,32 +35,30 @@ public class Hangman {
 	Scanner WordScanner;
 	Scanner scanner = new Scanner(System.in);
 
-	public static Hangman getInstance()
-	{
-		if(instance == null)
-		{
+	public static Hangman getInstance() {
+		if (instance == null) {
 			instance = new Hangman();
 		}
-		
+
 		return instance;
 	}
-	
+
 	public void setDifficulty(int difficulty) {
 		switch (difficulty) {
 		case 1:
-			AssignDifficulty(VeryEZFile,"Very Easy",10);
+			AssignDifficulty(VeryEZFile, "Very Easy", 10);
 			break;
 		case 2:
-			AssignDifficulty(EZFile,"Easy",8);
+			AssignDifficulty(EZFile, "Easy", 8);
 			break;
 		case 3:
-			AssignDifficulty(NormalFile,"Normal",5);
+			AssignDifficulty(NormalFile, "Normal", 5);
 			break;
 		case 4:
-			AssignDifficulty(HardFile,"Hard",5);
+			AssignDifficulty(HardFile, "Hard", 5);
 			break;
 		case 5:
-			AssignDifficulty(VeryHardFile,"Very Hard",5);
+			AssignDifficulty(VeryHardFile, "Very Hard", 5);
 			break;
 		default:
 			System.out.println("Please input one of the proper difficulty");
@@ -67,6 +68,7 @@ public class Hangman {
 
 	/**
 	 * Scan the file and add all of the words from the text file into the Arraylist
+	 * 
 	 * @param file
 	 */
 	private void ListScanner(File file) {
@@ -81,7 +83,8 @@ public class Hangman {
 			String Word = WordScanner.nextLine();
 			listofwords.add(Word);
 		}
-		while (WordScanner.hasNext());
+		while (WordScanner.hasNext())
+			;
 		WordScanner.close();
 	}
 
@@ -89,7 +92,8 @@ public class Hangman {
 	 * Pick a random word from the list
 	 */
 	private void chosingword() {
-		randNum = (int) (Math.random() * listofwords.size());
+		Random rand = new Random();
+		randNum = rand.nextInt(listofwords.size());
 		Chosenword = listofwords.get(randNum);
 
 		Userguessword = new char[Chosenword.length()];
@@ -122,9 +126,8 @@ public class Hangman {
 		}
 	}
 
-	public void Guessing()
-	{
-		while (!wordGuessed && currentFailGuess < MaxFailGuess) {
+	public void Guessing() {
+		while (!wordGuessed && currentFailGuess < maxFailGuess) {
 
 			if (filledLetters == Chosenword.length()) {
 				wordGuessed = true;
@@ -138,17 +141,33 @@ public class Hangman {
 			}
 		}
 	}
-	
-	public void AssignDifficulty(File fileName,String Difficulty, int MaxFailGuess)
-	{
+
+	public void AssignDifficulty(File fileName, String Difficulty, int MaxFailGuess) {
 		ListScanner(fileName);
 		difficulty = Difficulty;
-		this.MaxFailGuess = MaxFailGuess;
+		this.maxFailGuess = MaxFailGuess;
 		chosingword();
 	}
-	
-	public String getDifficulty()
-	{
+
+	public String getDifficulty() {
 		return difficulty;
 	}
+	
+	public int getCurrentFailGuess() {
+		return currentFailGuess;
+	}
+	
+	public int getRemainingblanks() {
+		return Chosenword.length() - filledLetters;
+	}
+
+	public int getNumberOfRestarts() {
+		return numberOfRestarts;
+	}
+
+	public int getNumberofGiveUp() {
+		return numberofGiveUp;
+	}
+	
+	
 }

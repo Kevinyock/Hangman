@@ -4,22 +4,22 @@ import java.awt.event.ActionListener;
 
 /**
  * Super Class Window
+ * 
  * @author Kevin
  *
  */
-public class Window extends JFrame implements ActionListener{
+public class Window extends JFrame implements ActionListener {
 
 	/**
 	 * hangman game itself
 	 */
-	public void setWindowVisible(boolean visible)
-	{
+	public void setWindowVisible(boolean visible) {
 		setVisible(visible);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 	}
-	
+
 }
