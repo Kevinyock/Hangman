@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -36,6 +37,8 @@ public class GameWindow extends Window {
 	private JLabel DifficultyChosen = new JLabel();
 	private JLabel GuessFieldCounter = new JLabel();
 	private JLabel RemainingBlankLetters = new JLabel();
+	
+	private JLabel missingWord = new JLabel();
 	
 	private JButton[] letterButtons = new JButton[26];
 
@@ -112,6 +115,21 @@ public class GameWindow extends Window {
 
 		int PanelWidth = 505;
 		int PanelHeight = 420;
+		
+		HangmanDisplay.setLayout(new GridLayout(2,1));
+		HangmanDisplay.add(missingWord,BorderLayout.CENTER);
+		missingWord.setAlignmentX(TOP_ALIGNMENT);
+
+		String chosenWord = "";
+		
+		for(int i = 0; i < hangman.getChosenWordLength(); i++) {
+			chosenWord = chosenWord.concat("_ ");
+		}
+		chosenWord = chosenWord.trim();
+		
+		missingWord.setFont(new Font("Ariel",Font.PLAIN,32));
+		missingWord.setText(chosenWord);
+		missingWord.setSize(505, 64);
 		
 		HangmanDisplay.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		HangmanDisplay.setBounds(FramePadding, FramePadding, PanelWidth, PanelHeight);
@@ -204,7 +222,7 @@ public class GameWindow extends Window {
 				System.out.println("I Give up");
 				break;
 			default:
-				System.out.println();
+				System.out.println(e.getActionCommand());
 				break;
 		}
 	}

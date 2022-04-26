@@ -81,7 +81,7 @@ public class Difficulty extends Window {
 				setWindowVisible(false);
 				gameWindow.StartGame();
 				break;
-			case "VeryHard":
+			case "Very Hard":
 				hangman.setDifficulty(5);
 				setWindowVisible(false);
 				gameWindow.StartGame();

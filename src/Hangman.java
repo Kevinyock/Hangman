@@ -25,7 +25,7 @@ public class Hangman {
 	private String difficulty;
 
 	private ArrayList<String> listofwords = new ArrayList<String>();
-	String Chosenword = "Tesla";
+	private String Chosenword = "Tesla";
 	char[] Userguessword;
 	char guessletter;
 	int filledLetters = 0;
@@ -83,8 +83,8 @@ public class Hangman {
 			String Word = WordScanner.nextLine();
 			listofwords.add(Word);
 		}
-		while (WordScanner.hasNext())
-			;
+		while (WordScanner.hasNext());
+		
 		WordScanner.close();
 	}
 
@@ -169,5 +169,7 @@ public class Hangman {
 		return numberofGiveUp;
 	}
 	
-	
+	public int getChosenWordLength() {
+		return Chosenword.length();
+	}
 }
