@@ -23,7 +23,7 @@ public class GameWindow extends Window {
 	
 	private int FramePadding = 10;
 	
-	private char[] alphabet = "QWERTYUIOPASDFGHJKLZXCVBNM".toCharArray();
+	private char[] alphabet = "qwertyuiopasdfghjklzxcvbnm".toCharArray();
 
 	private JPanel mainPanel = new JPanel();
 	private JPanel HangmanDisplay = new JPanel();
@@ -138,6 +138,11 @@ public class GameWindow extends Window {
 		HangmanDisplay.setVisible(true);
 	}
 
+	private void updateChosenWordTXT(String updatedChosenWordTXT) {
+		updatedChosenWordTXT = updatedChosenWordTXT.trim();
+		missingWord.setText(updatedChosenWordTXT);
+	}
+	
 	/**
 	 * 
 	 */
@@ -212,18 +217,30 @@ public class GameWindow extends Window {
 		}
 	}
 	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()) {
 			case "Restart":
 				System.out.println("Restart");
+				resetKeyboard();
 				break;
 			case "Give Up":
 				System.out.println("I Give up");
+				resetKeyboard();
 				break;
 			default:
-				System.out.println(e.getActionCommand());
+				//hangman.guessLetter(e.getActionCommand());
+				//updateChosenWordTXT(hangman.getuserWord());
+				JButton button = (JButton) e.getSource();
+				button.setEnabled(false);
 				break;
+		}
+	}
+	
+	private void resetKeyboard() {
+		for(int i = 0; i < letterButtons.length;i++) {
+			letterButtons[i].setEnabled(true);
 		}
 	}
 

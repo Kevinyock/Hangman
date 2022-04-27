@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -26,7 +27,8 @@ public class Hangman {
 
 	private ArrayList<String> listofwords = new ArrayList<String>();
 	private String Chosenword = "Tesla";
-	char[] Userguessword;
+	private String userWord = "";
+
 	char guessletter;
 	int filledLetters = 0;
 
@@ -83,8 +85,9 @@ public class Hangman {
 			String Word = WordScanner.nextLine();
 			listofwords.add(Word);
 		}
-		while (WordScanner.hasNext());
-		
+		while (WordScanner.hasNext())
+			;
+
 		WordScanner.close();
 	}
 
@@ -94,23 +97,14 @@ public class Hangman {
 	private void chosingword() {
 		Random rand = new Random();
 		randNum = rand.nextInt(listofwords.size());
-		Chosenword = listofwords.get(randNum);
+		Chosenword = listofwords.get(randNum).toLowerCase();
 
-		Userguessword = new char[Chosenword.length()];
-
-		for (int i = 0; i < Chosenword.length(); i++) {
-			Userguessword[i] = '_';
-		}
 	}
 
 	/**
 	 * Player has to guess
 	 */
 	public void Guess() {
-		for (int i = 0; i < Chosenword.length(); i++) {
-			System.out.print(Userguessword[i] + " ");
-		}
-		System.out.println();
 
 		guessletter = scanner.next().charAt(0);
 		if (Character.isLetter(guessletter)) {
@@ -118,7 +112,6 @@ public class Hangman {
 			for (int i = 0; i < Chosenword.length(); i++) {
 				if (Chosenword.charAt(i) == guessletter) {
 					filledLetters++;
-					Userguessword[i] = Chosenword.charAt(i);
 				}
 			}
 		} else {
@@ -152,11 +145,11 @@ public class Hangman {
 	public String getDifficulty() {
 		return difficulty;
 	}
-	
+
 	public int getCurrentFailGuess() {
 		return currentFailGuess;
 	}
-	
+
 	public int getRemainingblanks() {
 		return Chosenword.length() - filledLetters;
 	}
@@ -168,8 +161,37 @@ public class Hangman {
 	public int getNumberofGiveUp() {
 		return numberofGiveUp;
 	}
-	
+
 	public int getChosenWordLength() {
 		return Chosenword.length();
+	}
+
+	public void guessLetter(String letter) {
+		if (letter.length() == 1) {
+			// User got the letter correct
+			if (Chosenword.contains(letter)) {
+				System.out.println("This letter exist");
+				for (int i = 0; i < Chosenword.length(); i++) {
+					if (Chosenword.charAt(i) == letter.charAt(0)) {
+						// userWord = userWord.concat(letter.charAt(0) + " ");
+					} else {
+						// userWord = userWord.concat("_ ");
+					}
+				}
+				userWord = userWord.trim();
+			} else { // WRONG!
+
+				for (int i = 0; i < Chosenword.length(); i++) {
+					//userWord = userWord.concat("_ ");
+				}
+				//userWord = userWord.trim();
+			}
+		} else {
+			System.out.println("Error");
+		}
+	}
+
+	public String getuserWord() {
+		return userWord;
 	}
 }
