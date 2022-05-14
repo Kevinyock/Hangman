@@ -72,7 +72,6 @@ public class GameWindow extends Window {
 		setWindowVisible(true);
 	}
 	
-
 	private void MainPanelSetUp() {
 		add(mainPanel);
 		mainPanel.setOpaque(true);
@@ -123,13 +122,14 @@ public class GameWindow extends Window {
 		String chosenWord = "";
 		
 		for(int i = 0; i < hangman.getChosenWordLength(); i++) {
-			chosenWord = chosenWord.concat("_ ");
+			chosenWord = chosenWord.concat("_");
 		}
-		chosenWord = chosenWord.trim();
+		chosenWord = chosenWord.replaceAll(".", "$0 ").trim();
 		
 		missingWord.setFont(new Font("Ariel",Font.PLAIN,32));
-		missingWord.setText(chosenWord);
 		missingWord.setSize(505, 64);
+		missingWord.setText(chosenWord);
+		missingWord.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
 		
 		HangmanDisplay.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		HangmanDisplay.setBounds(FramePadding, FramePadding, PanelWidth, PanelHeight);
@@ -139,8 +139,8 @@ public class GameWindow extends Window {
 	}
 
 	private void updateChosenWordTXT(String updatedChosenWordTXT) {
-		updatedChosenWordTXT = updatedChosenWordTXT.trim();
-		missingWord.setText(updatedChosenWordTXT);
+		//updatedChosenWordTXT = updatedChosenWordTXT.trim();
+		missingWord.setText(updatedChosenWordTXT.replaceAll(".", "$0 ").trim());
 	}
 	
 	/**
@@ -173,7 +173,7 @@ public class GameWindow extends Window {
 		Statistics.add(RemainingBlankLetters);
 
 		DifficultyChosen.setText(String.format("<html>Difficulty:<br> %s</html>", hangman.getDifficulty()));
-		GuessFieldCounter.setText(String.format("<html>guesses:<br>%s</html>", hangman.getCurrentFailGuess()));
+		GuessFieldCounter.setText(String.format("<html>guesses:<br>%s</html>", hangman.getCurrentGuess()));
 		RemainingBlankLetters.setText(String.format("<html>remaining blanks:<br>%s</html>", hangman.getRemainingblanks()));
 		
 		DifficultyChosen.setBounds(10, 10, 100, 30);
@@ -187,7 +187,13 @@ public class GameWindow extends Window {
 		Statistics.setVisible(true);
 	}
 
-
+	public void updateRemainingBlanks() {
+		RemainingBlankLetters.setText(String.format("<html>remaining blanks:<br>%s</html>", hangman.getRemainingblanks()));
+	}
+	
+	public void updateGuessFieldCounter() {
+		GuessFieldCounter.setText(String.format("<html>guesses:<br>%s</html>", hangman.getCurrentGuess()));
+	}
 	/**
 	 * Create the keyboard buttons
 	 */
@@ -230,8 +236,10 @@ public class GameWindow extends Window {
 				resetKeyboard();
 				break;
 			default:
-				//hangman.guessLetter(e.getActionCommand());
-				//updateChosenWordTXT(hangman.getuserWord());
+				hangman.guessLetter(e.getActionCommand());
+				updateChosenWordTXT(hangman.getuserWord());
+				updateRemainingBlanks();
+				updateGuessFieldCounter();
 				JButton button = (JButton) e.getSource();
 				button.setEnabled(false);
 				break;

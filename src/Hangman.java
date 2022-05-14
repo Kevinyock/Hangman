@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,7 +10,7 @@ public class Hangman {
 
 	int randNum;
 	int maxFailGuess;
-	int currentFailGuess = 0;
+	int currentGuess = 0;
 	int numberOfRestarts = 0;
 	int numberofGiveUp = 0;
 
@@ -25,7 +24,7 @@ public class Hangman {
 
 	private String difficulty;
 
-	private ArrayList<String> listofwords = new ArrayList<String>();
+	private ArrayList<String> listofwords = new ArrayList<>();
 	private String Chosenword = "Tesla";
 	private String userWord = "";
 
@@ -98,6 +97,10 @@ public class Hangman {
 		Random rand = new Random();
 		randNum = rand.nextInt(listofwords.size());
 		Chosenword = listofwords.get(randNum).toLowerCase();
+		
+		for (int i = 0; i < Chosenword.length(); i++) {
+			userWord = userWord.concat("_");
+		}
 
 	}
 
@@ -120,7 +123,7 @@ public class Hangman {
 	}
 
 	public void Guessing() {
-		while (!wordGuessed && currentFailGuess < maxFailGuess) {
+		while (!wordGuessed && currentGuess < maxFailGuess) {
 
 			if (filledLetters == Chosenword.length()) {
 				wordGuessed = true;
@@ -146,8 +149,8 @@ public class Hangman {
 		return difficulty;
 	}
 
-	public int getCurrentFailGuess() {
-		return currentFailGuess;
+	public int getCurrentGuess() {
+		return currentGuess;
 	}
 
 	public int getRemainingblanks() {
@@ -167,18 +170,24 @@ public class Hangman {
 	}
 
 	public void guessLetter(String letter) {
+		StringBuilder updatedWord = new StringBuilder(userWord);
 		if (letter.length() == 1) {
+
+			currentGuess++;
 			// User got the letter correct
 			if (Chosenword.contains(letter)) {
-				System.out.println("This letter exist");
+				System.out.println(userWord);
 				for (int i = 0; i < Chosenword.length(); i++) {
 					if (Chosenword.charAt(i) == letter.charAt(0)) {
-						// userWord = userWord.concat(letter.charAt(0) + " ");
+						updatedWord.setCharAt(i, letter.charAt(0));
+						userWord = updatedWord.toString();
+						filledLetters++;
 					} else {
-						// userWord = userWord.concat("_ ");
+						
 					}
 				}
 				userWord = userWord.trim();
+				System.out.println(updatedWord);
 			} else { // WRONG!
 
 				for (int i = 0; i < Chosenword.length(); i++) {
