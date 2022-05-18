@@ -31,8 +31,9 @@ public class GameWindow extends Window {
 	private JPanel Statistics = new JPanel();
 	private JPanel options = new JPanel();
 
-	private JButton GiveUp = new JButton("Give Up");
+	private JButton GiveUp =  new JButton("Give Up");
 	private JButton Restart = new JButton("Restart");
+	private JButton NewWord = new JButton("New Word");
 
 	private JLabel DifficultyChosen = new JLabel();
 	private JLabel GuessFieldCounter = new JLabel();
@@ -92,21 +93,28 @@ public class GameWindow extends Window {
 	private void OptionPanelSetUp() {
 		options.add(Restart);
 		options.add(GiveUp);
+		options.add(NewWord);
 
 		int PanelWidth = 100;
 		int PanelHeight = 155;
 		options.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		options.setBackground(Color.WHITE);
-		options.setLayout(new GridLayout(2, 1, 5, 5));
+		options.setLayout(new GridLayout(3, 1, 5, 5));
 		options.setLocation(this.getWidth() - (PanelWidth + 25), this.getHeight() - (PanelHeight + 50));
 		options.setSize(PanelWidth, PanelHeight);
 
 		Restart.setBounds(0, 0, 100, 80);
 		GiveUp.setBounds(0, 0, 100, 80);
+		NewWord.setBounds(0,0,100,80);
+		
+		Restart.setFont(new Font("Ariel",Font.PLAIN,9));
+		GiveUp.setFont(new Font("Ariel",Font.PLAIN,9));
+		NewWord.setFont(new Font("Ariel",Font.PLAIN,9));
 
 		Restart.addActionListener(this);
 		GiveUp.addActionListener(this);
-
+		NewWord.addActionListener(this);
+		
 		options.setVisible(true);
 	}
 
@@ -118,17 +126,9 @@ public class GameWindow extends Window {
 		HangmanDisplay.setLayout(new GridLayout(2,1));
 		HangmanDisplay.add(missingWord,BorderLayout.CENTER);
 		missingWord.setAlignmentX(TOP_ALIGNMENT);
-
-		String chosenWord = "";
 		
-		for(int i = 0; i < hangman.getChosenWordLength(); i++) {
-			chosenWord = chosenWord.concat("_");
-		}
-		chosenWord = chosenWord.replaceAll(".", "$0 ").trim();
+		setChosenWordHidden();
 		
-		missingWord.setFont(new Font("Ariel",Font.PLAIN,32));
-		missingWord.setSize(505, 64);
-		missingWord.setText(chosenWord);
 		missingWord.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
 		
 		HangmanDisplay.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -139,7 +139,6 @@ public class GameWindow extends Window {
 	}
 
 	private void updateChosenWordTXT(String updatedChosenWordTXT) {
-		//updatedChosenWordTXT = updatedChosenWordTXT.trim();
 		missingWord.setText(updatedChosenWordTXT.replaceAll(".", "$0 ").trim());
 	}
 	
@@ -173,8 +172,7 @@ public class GameWindow extends Window {
 		Statistics.add(RemainingBlankLetters);
 
 		DifficultyChosen.setText(String.format("<html>Difficulty:<br> %s</html>", hangman.getDifficulty()));
-		GuessFieldCounter.setText(String.format("<html>guesses:<br>%s</html>", hangman.getCurrentGuess()));
-		RemainingBlankLetters.setText(String.format("<html>remaining blanks:<br>%s</html>", hangman.getRemainingblanks()));
+		updateCounter();
 		
 		DifficultyChosen.setBounds(10, 10, 100, 30);
 		GuessFieldCounter.setBounds(10, 50, 100, 30);
@@ -229,11 +227,22 @@ public class GameWindow extends Window {
 		switch(e.getActionCommand()) {
 			case "Restart":
 				System.out.println("Restart");
-				resetKeyboard();
+				hangman.resetGame();
+				setChosenWordHidden();
+				for(int i = 0; i < letterButtons.length;i++) {
+					letterButtons[i].setEnabled(true);
+				}
+				updateCounter();
 				break;
 			case "Give Up":
 				System.out.println("I Give up");
-				resetKeyboard();
+				for(int i = 0; i < letterButtons.length;i++) {
+					letterButtons[i].setEnabled(false);
+				}
+				missingWord.setText(hangman.revealAnswer().replaceAll(".", "$0 ").trim());
+				//Restart.setEnabled(false);
+				break;
+			case "New Word":
 				break;
 			default:
 				hangman.guessLetter(e.getActionCommand());
@@ -242,14 +251,35 @@ public class GameWindow extends Window {
 				updateGuessFieldCounter();
 				JButton button = (JButton) e.getSource();
 				button.setEnabled(false);
+				if(hangman.gotCorrectWord()) {
+					System.out.println("You got the word guess right");
+					System.out.println("You correctly guess the following word");
+				}
 				break;
 		}
 	}
 	
-	private void resetKeyboard() {
-		for(int i = 0; i < letterButtons.length;i++) {
-			letterButtons[i].setEnabled(true);
+	
+	
+	private void setChosenWordHidden() {
+
+		String chosenWord = "";
+		
+		for(int i = 0; i < hangman.getChosenWordLength(); i++) {
+			chosenWord = chosenWord.concat("_");
 		}
+		chosenWord = chosenWord.replaceAll(".", "$0 ").trim();
+		
+		missingWord.setFont(new Font("Ariel",Font.PLAIN,32));
+		missingWord.setSize(505, 64);
+		missingWord.setText(chosenWord);
 	}
+	
+	private void updateCounter() {
+		GuessFieldCounter.setText(String.format("<html>guesses:<br>%s</html>", hangman.getCurrentGuess()));
+		RemainingBlankLetters.setText(String.format("<html>remaining blanks:<br>%s</html>", hangman.getRemainingblanks()));
+	}
+	
+	
 
 }

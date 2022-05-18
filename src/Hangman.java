@@ -8,17 +8,17 @@ public class Hangman {
 
 	private static Hangman instance = null;
 
-	int randNum;
-	int maxFailGuess;
-	int currentGuess = 0;
-	int numberOfRestarts = 0;
-	int numberofGiveUp = 0;
+	private int randNum;
+	private int maxFailGuess;
+	private int currentGuess = 0;
+	private int numberOfRestarts = 0;
+	private int numberofGiveUp = 0;
 
-	File VeryEZFile = new File("VeryEZWord.txt");
-	File EZFile = new File("EZWord.txt");
-	File NormalFile = new File("NormWord.txt");
-	File HardFile = new File("HardWord.txt");
-	File VeryHardFile = new File("VeryHard.txt");
+	private File VeryEZFile = new File("VeryEZWord.txt");
+	private File EZFile = new File("EZWord.txt");
+	private File NormalFile = new File("NormWord.txt");
+	private File HardFile = new File("HardWord.txt");
+	private File VeryHardFile = new File("VeryHard.txt");
 
 	boolean wordGuessed = false;
 
@@ -28,13 +28,13 @@ public class Hangman {
 	private String Chosenword = "Tesla";
 	private String userWord = "";
 
-	char guessletter;
-	int filledLetters = 0;
+	private char guessletter;
+	private int filledLetters = 0;
 
-	int difficultyInput = 0;
+	private int difficultyInput = 0;
 
-	Scanner WordScanner;
-	Scanner scanner = new Scanner(System.in);
+	private Scanner WordScanner;
+	private Scanner scanner = new Scanner(System.in);
 
 	public static Hangman getInstance() {
 		if (instance == null) {
@@ -84,8 +84,7 @@ public class Hangman {
 			String Word = WordScanner.nextLine();
 			listofwords.add(Word);
 		}
-		while (WordScanner.hasNext())
-			;
+		while (WordScanner.hasNext());
 
 		WordScanner.close();
 	}
@@ -165,6 +164,7 @@ public class Hangman {
 		return numberofGiveUp;
 	}
 
+	
 	public int getChosenWordLength() {
 		return Chosenword.length();
 	}
@@ -190,10 +190,6 @@ public class Hangman {
 				System.out.println(updatedWord);
 			} else { // WRONG!
 
-				for (int i = 0; i < Chosenword.length(); i++) {
-					//userWord = userWord.concat("_ ");
-				}
-				//userWord = userWord.trim();
 			}
 		} else {
 			System.out.println("Error");
@@ -202,5 +198,22 @@ public class Hangman {
 
 	public String getuserWord() {
 		return userWord;
+	}
+	
+	public String revealAnswer() {
+		return Chosenword;
+	}
+	
+	public void resetGame() {
+		userWord = "";
+		for (int i = 0; i < Chosenword.length(); i++) {
+			userWord = userWord.concat("_");
+		}
+		filledLetters = 0;
+		currentGuess = 0;
+	}
+	
+	public boolean gotCorrectWord() {
+		return filledLetters == Chosenword.length();
 	}
 }
