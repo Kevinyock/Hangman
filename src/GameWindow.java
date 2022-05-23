@@ -1,20 +1,15 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.*;
 
 public class GameWindow extends Window {
 	private static GameWindow instance = null;
 	private static Hangman hangman = Hangman.getInstance();
-
-	private KeyStroke keyStroke;
 
 	private int FrameBorderSize = 30;
 	
@@ -26,6 +21,7 @@ public class GameWindow extends Window {
 	private char[] alphabet = "qwertyuiopasdfghjklzxcvbnm".toCharArray();
 
 	private JPanel mainPanel = new JPanel();
+	private JPanel wordPanel = new JPanel();
 	private JPanel HangmanDisplay = new JPanel();
 	private JPanel Keyboard = new JPanel();
 	private JPanel Statistics = new JPanel();
@@ -67,6 +63,7 @@ public class GameWindow extends Window {
 	public void StartGame() {
 		MainPanelSetUp();
 		OptionPanelSetUp();
+		WordPanelSetUp();
 		HangmanDisplaySetUp();
 		KeyboardSetUp();
 		StatisticsPanelSetuP();
@@ -82,6 +79,7 @@ public class GameWindow extends Window {
 		mainPanel.setVisible(true);
 
 		mainPanel.add(options);
+		mainPanel.add(wordPanel);
 		mainPanel.add(HangmanDisplay);
 		mainPanel.add(Keyboard);
 		mainPanel.add(Statistics);
@@ -118,21 +116,32 @@ public class GameWindow extends Window {
 		options.setVisible(true);
 	}
 
+	private void WordPanelSetUp() {
+		int PanelWidth = 505;
+		int PanelHeight = 50;
+
+		wordPanel.add(missingWord);
+		setChosenWordHidden();
+
+		missingWord.setAlignmentY(java.awt.Component.TOP_ALIGNMENT);
+		
+		wordPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		wordPanel.setBounds(FramePadding, FramePadding, PanelWidth, PanelHeight);
+		wordPanel.setBackground(Color.WHITE);
+		wordPanel.setLayout(null);
+		wordPanel.setVisible(true);
+	}
+	
 	private void HangmanDisplaySetUp() {
 
 		int PanelWidth = 505;
-		int PanelHeight = 420;
+		int PanelHeight = 360;
 		
-		HangmanDisplay.setLayout(new GridLayout(2,1));
-		HangmanDisplay.add(missingWord,BorderLayout.CENTER);
-		missingWord.setAlignmentX(TOP_ALIGNMENT);
-		
-		setChosenWordHidden();
-		
-		missingWord.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+		// Draw Section
+		// 
 		
 		HangmanDisplay.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		HangmanDisplay.setBounds(FramePadding, FramePadding, PanelWidth, PanelHeight);
+		HangmanDisplay.setBounds(FramePadding, 70, PanelWidth, PanelHeight);
 		HangmanDisplay.setBackground(Color.WHITE);
 		HangmanDisplay.setLayout(null);
 		HangmanDisplay.setVisible(true);
