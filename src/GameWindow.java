@@ -22,7 +22,7 @@ public class GameWindow extends Window {
 
 	private JPanel mainPanel = new JPanel();
 	private JPanel wordPanel = new JPanel();
-	private JPanel HangmanDisplay = new JPanel();
+	private HangmanDisplay HangmanDisplay = new HangmanDisplay();
 	private JPanel Keyboard = new JPanel();
 	private JPanel Statistics = new JPanel();
 	private JPanel options = new JPanel();
