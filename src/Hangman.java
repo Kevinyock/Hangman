@@ -45,21 +45,22 @@ public class Hangman {
 	}
 
 	public void setDifficulty(int difficulty) {
-		switch (difficulty) {
+		difficultyInput = difficulty;
+		switch (difficultyInput) {
 		case 1:
-			AssignDifficulty(VeryEZFile, "Very Easy", 10);
+			AssignDifficulty(VeryEZFile, "Very Easy", 18);
 			break;
 		case 2:
-			AssignDifficulty(EZFile, "Easy", 8);
+			AssignDifficulty(EZFile, "Easy", 12);
 			break;
 		case 3:
-			AssignDifficulty(NormalFile, "Normal", 5);
+			AssignDifficulty(NormalFile, "Normal", 6);
 			break;
 		case 4:
-			AssignDifficulty(HardFile, "Hard", 5);
+			AssignDifficulty(HardFile, "Hard", 6);
 			break;
 		case 5:
-			AssignDifficulty(VeryHardFile, "Very Hard", 5);
+			AssignDifficulty(VeryHardFile, "Very Hard", 6);
 			break;
 		default:
 			System.out.println("Please input one of the proper difficulty");
@@ -216,4 +217,5 @@ public class Hangman {
 	public boolean gotCorrectWord() {
 		return filledLetters == Chosenword.length();
 	}
+	
 }

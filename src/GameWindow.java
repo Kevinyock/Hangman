@@ -39,7 +39,6 @@ public class GameWindow extends Window {
 	
 	private JButton[] letterButtons = new JButton[26];
 
-	Graphics2D head;
 	/**
 	 * 0 - Head 1 - Torso 2 - Left Arm 3 - Right Arm 4 - Left Leg 5 - Right Leg
 	 */
