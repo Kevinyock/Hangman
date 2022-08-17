@@ -10,6 +10,7 @@ public class Hangman {
 
 	private int randNum;
 	private int maxFailGuess;
+	private int currentFailGuess = 0;
 	private int currentGuess = 0;
 	private int numberOfRestarts = 0;
 	private int numberofGiveUp = 0;
@@ -46,7 +47,7 @@ public class Hangman {
 
 	public void setDifficulty(int difficulty) {
 		difficultyInput = difficulty;
-		switch (difficultyInput) {
+		switch (getDifficultyInput()) {
 		case 1:
 			AssignDifficulty(VeryEZFile, "Very Easy", 18);
 			break;
@@ -149,6 +150,14 @@ public class Hangman {
 		return difficulty;
 	}
 
+	public int getMaxFailGuess() {
+		return maxFailGuess;
+	}
+	
+	public int getCurrentFailGuess() {
+		return currentFailGuess;
+	}
+	
 	public int getCurrentGuess() {
 		return currentGuess;
 	}
@@ -170,6 +179,10 @@ public class Hangman {
 		return Chosenword.length();
 	}
 
+	public int getDifficultyInput() {
+		return difficultyInput;
+	}
+	
 	public void guessLetter(String letter) {
 		StringBuilder updatedWord = new StringBuilder(userWord);
 		if (letter.length() == 1) {
@@ -190,7 +203,7 @@ public class Hangman {
 				userWord = userWord.trim();
 				System.out.println(updatedWord);
 			} else { // WRONG!
-
+				currentFailGuess++;
 			}
 		} else {
 			System.out.println("Error");
@@ -212,10 +225,15 @@ public class Hangman {
 		}
 		filledLetters = 0;
 		currentGuess = 0;
+		currentFailGuess = 0;
 	}
 	
 	public boolean gotCorrectWord() {
 		return filledLetters == Chosenword.length();
+	}
+	
+	public boolean containLetter(String letter) {
+		return Chosenword.contains(letter);
 	}
 	
 }
