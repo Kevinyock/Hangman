@@ -236,4 +236,11 @@ public class Hangman {
 		return Chosenword.contains(letter);
 	}
 	
+	/**
+	 * Let pick a new word at the same difficulty
+	 */
+	public void newWord()
+	{
+		
+	}
 }

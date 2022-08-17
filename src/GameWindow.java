@@ -247,6 +247,7 @@ public class GameWindow extends Window {
 				//Restart.setEnabled(false);
 				break;
 			case "New Word":
+				hangman.newWord();
 				break;
 			default:
 				hangman.guessLetter(e.getActionCommand());
