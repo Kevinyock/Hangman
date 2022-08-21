@@ -8,3 +8,5 @@ north
 south
 east
 west
+i
+war
