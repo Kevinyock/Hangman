@@ -241,6 +241,16 @@ public class Hangman {
 	 */
 	public void newWord()
 	{
-		
+		userWord = "";
+		Random rand = new Random();
+		randNum = rand.nextInt(listofwords.size());
+		Chosenword = listofwords.get(randNum).toLowerCase();
+		for (int i = 0; i < Chosenword.length(); i++) {
+			userWord = userWord.concat("_");
+		}
+		filledLetters = 0;
+		currentGuess = 0;
+		currentFailGuess = 0;
+		System.out.println(Chosenword);
 	}
 }

@@ -231,7 +231,7 @@ public class GameWindow extends Window {
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()) {
 			case "Restart":
-				System.out.println("Restart");
+				//System.out.println("Restart");
 				hangman.resetGame();
 				setChosenWordHidden();
 				for(int i = 0; i < letterButtons.length;i++) {
@@ -248,6 +248,12 @@ public class GameWindow extends Window {
 				break;
 			case "New Word":
 				hangman.newWord();
+				setChosenWordHidden();
+				for(int i = 0; i < letterButtons.length;i++) {
+					letterButtons[i].setEnabled(true);
+				}
+				updateCounter();
+				hangmanDisplay.repaint();
 				break;
 			default:
 				hangman.guessLetter(e.getActionCommand());
@@ -303,7 +309,8 @@ public class GameWindow extends Window {
 		GuessFieldCounter.setText(String.format("<html>guesses:<br>%s</html>", hangman.getCurrentGuess()));
 		RemainingBlankLetters.setText(String.format("<html>remaining blanks:<br>%s</html>", hangman.getRemainingblanks()));
 	}
-	
+
+
 	
 
 }
