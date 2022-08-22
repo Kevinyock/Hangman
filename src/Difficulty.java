@@ -39,7 +39,7 @@ public class Difficulty extends Window {
 
 		add(DifficultyPanel);
 
-		DifficultyPanel.setBackground(Color.RED);
+		DifficultyPanel.setBackground(Color.gray);
 		DifficultyPanel.add(VeryEasy);
 		DifficultyPanel.add(Easy);
 		DifficultyPanel.add(Normal);
@@ -54,6 +54,7 @@ public class Difficulty extends Window {
 		Normal.addActionListener(this);
 		Hard.addActionListener(this);
 		VeryHard.addActionListener(this);
+		
 
 		setVisible(true);
 	}

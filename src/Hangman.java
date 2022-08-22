@@ -64,7 +64,7 @@ public class Hangman {
 			AssignDifficulty(VeryHardFile, "Very Hard", 6);
 			break;
 		default:
-			System.out.println("Please input one of the proper difficulty");
+			//System.out.println("Please input one of the proper difficulty");
 			break;
 		}
 	}
@@ -190,7 +190,7 @@ public class Hangman {
 			currentGuess++;
 			// User got the letter correct
 			if (Chosenword.contains(letter)) {
-				System.out.println(userWord);
+				//System.out.println(userWord);
 				for (int i = 0; i < Chosenword.length(); i++) {
 					if (Chosenword.charAt(i) == letter.charAt(0)) {
 						updatedWord.setCharAt(i, letter.charAt(0));
@@ -201,7 +201,7 @@ public class Hangman {
 					}
 				}
 				userWord = userWord.trim();
-				System.out.println(updatedWord);
+				//System.out.println(updatedWord);
 			} else { // WRONG!
 				currentFailGuess++;
 			}
@@ -251,6 +251,6 @@ public class Hangman {
 		filledLetters = 0;
 		currentGuess = 0;
 		currentFailGuess = 0;
-		System.out.println(Chosenword);
+		//System.out.println(Chosenword);
 	}
 }

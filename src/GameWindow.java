@@ -39,10 +39,6 @@ public class GameWindow extends Window {
 	
 	private JButton[] letterButtons = new JButton[26];
 
-	/**
-	 * 0 - Head 1 - Torso 2 - Left Arm 3 - Right Arm 4 - Left Leg 5 - Right Leg
-	 */
-	Graphics2D[] bodyparts;
 
 	public static GameWindow getInstance() {
 		if (instance == null) {
@@ -74,7 +70,7 @@ public class GameWindow extends Window {
 		mainPanel.setOpaque(true);
 		mainPanel.setBounds(0, 0, GameFrameWidth, GameFrameHeight);
 		mainPanel.setLayout(null);
-		mainPanel.setBackground(Color.RED);
+		mainPanel.setBackground(Color.gray);
 		mainPanel.setVisible(true);
 
 		mainPanel.add(options);
@@ -278,8 +274,9 @@ public class GameWindow extends Window {
 				}
 				
 				if(hangman.gotCorrectWord()) {
-					System.out.println("You got the word guess right");
-					System.out.println("You correctly guess the following word");
+					lockKeyboard();
+					//System.out.println("You got the word guess right");
+					//System.out.println("You correctly guess the following word");
 				}
 				break;
 		}
